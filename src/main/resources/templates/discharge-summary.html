@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Discharge Summary</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            color: #1a1a1a;
+            margin: 0;
+            padding: 24px;
+            line-height: 1.6;
+        }
+
+        .report-container {
+            border: 2px solid #1e4d8c;
+            padding: 0;
+        }
+
+        .report-header {
+            background-color: #1e4d8c;
+            color: #ffffff;
+            padding: 20px 24px;
+            text-align: center;
+            border-bottom: 3px solid #153a6b;
+        }
+
+        .report-header h1 {
+            margin: 0;
+            font-size: 22px;
+            letter-spacing: 0.5px;
+        }
+
+        .report-header p {
+            margin: 6px 0 0 0;
+            font-size: 11px;
+        }
+
+        .report-body {
+            padding: 24px;
+        }
+
+        .section {
+            margin-bottom: 24px;
+            border: 1px solid #c5d3e8;
+            padding: 16px 18px;
+            background-color: #f8fafc;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-heading {
+            margin: 0 0 14px 0;
+            padding-bottom: 8px;
+            font-size: 14px;
+            color: #1e4d8c;
+            border-bottom: 2px solid #1e4d8c;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .field-row {
+            margin-bottom: 10px;
+            padding: 8px 10px;
+            border: 1px solid #dce4ef;
+            background-color: #ffffff;
+        }
+
+        .field-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .field-label {
+            display: inline-block;
+            width: 140px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .field-value {
+            color: #1a1a1a;
+        }
+
+        .divider {
+            border: none;
+            border-top: 2px solid #c5d3e8;
+            margin: 24px 0;
+        }
+
+        .summary-section {
+            border: 1px solid #c5d3e8;
+            padding: 16px 18px;
+            background-color: #f8fafc;
+        }
+
+        .summary-content {
+            margin: 0;
+            padding: 12px 14px;
+            border: 1px solid #dce4ef;
+            background-color: #ffffff;
+            text-align: justify;
+        }
+
+        .report-footer {
+            margin-top: 24px;
+            padding-top: 12px;
+            border-top: 1px solid #c5d3e8;
+            font-size: 10px;
+            color: #5a6a7a;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="report-container">
+    <div class="report-header">
+        <h1>Hospital Discharge Summary</h1>
+        <p>MedSync Healthcare &mdash; Official Patient Discharge Report</p>
+    </div>
+
+    <div class="report-body">
+        <div class="section">
+            <h2 class="section-heading">Patient Information</h2>
+
+            <p class="field-row">
+                <span class="field-label">Patient Name:</span>
+                <span class="field-value" th:text="${patientName}"></span>
+            </p>
+
+            <p class="field-row">
+                <span class="field-label">Disease:</span>
+                <span class="field-value" th:text="${disease}"></span>
+            </p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-heading">Treatment Details</h2>
+
+            <p class="field-row">
+                <span class="field-label">Doctor:</span>
+                <span class="field-value" th:text="${doctorName}"></span>
+            </p>
+
+            <p class="field-row">
+                <span class="field-label">Prescription:</span>
+                <span class="field-value" th:text="${prescription}"></span>
+            </p>
+        </div>
+
+        <hr class="divider"/>
+
+        <div class="summary-section">
+            <h2 class="section-heading">AI Generated Patient Summary</h2>
+
+            <p class="summary-content" th:text="${aiSummary}"></p>
+        </div>
+
+        <div class="report-footer">
+            This document is generated electronically and is valid without a physical signature.
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
