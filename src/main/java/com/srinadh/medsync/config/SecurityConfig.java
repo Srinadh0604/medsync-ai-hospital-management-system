@@ -45,8 +45,11 @@ public class SecurityConfig {
                                 "/reports/**",
                                 "/audit/**",
                                 "/dashboard/**",
-                                "/health/**",
-                                "/export/**"
+                                "/swagger-ui/**",
+//                                "/health/**",
+//                                "/export/**",
+                                "/swagger-ui.html",
+                                "/v3/api-docs/**"
                         ).permitAll()
 
                         .requestMatchers("/doctors/**").hasRole("ADMIN")

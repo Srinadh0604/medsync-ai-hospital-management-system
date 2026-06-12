@@ -38,3 +38,13 @@ build/
 logs/
 
 application-local.properties
+
+# Environment files
+.env
+
+# Application secrets
+src/main/resources/application.properties
+
+# OS files
+.DS_Store
+Thumbs.db
