@@ -1,6 +1,7 @@
 package com.srinadh.medsync.controller;
 
 import com.srinadh.medsync.dto.LoginRequest;
+import com.srinadh.medsync.dto.LoginResponse;
 import com.srinadh.medsync.dto.RegisterRequest;
 import com.srinadh.medsync.entity.User;
 import com.srinadh.medsync.service.AuthService;
@@ -27,18 +28,6 @@ public class AuthController {
         return authService.register(request);
     }
 
-    @PostMapping("/login")
-    public Map<String,String> login(
-            @RequestBody LoginRequest request){
-
-        String token = authService.login(request);
-
-        return Map.of(
-                "token",
-                token
-        );
-    }
-
 //    @PostMapping("/login")
 //    public Map<String,String> login(
 //            @RequestBody LoginRequest request){
@@ -46,7 +35,16 @@ public class AuthController {
 //        String token = authService.login(request);
 //
 //        return Map.of(
-//                "token", token
+//                "token",
+//                token
 //        );
+//
 //    }
+
+    @PostMapping("/login")
+    public LoginResponse login(
+            @Valid @RequestBody LoginRequest request) {
+
+        return authService.login(request);
+    }
 }

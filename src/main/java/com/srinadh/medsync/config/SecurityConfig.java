@@ -29,6 +29,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                .cors(cors -> {})
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -41,24 +42,31 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/auth/**",
                                 "/pdf/**",
-                                "/ai/**",
-                                "/reports/**",
-                                "/audit/**",
+//                                "/ai/**",
+//                                "/reports/**",
+//                                "/audit/**",
                                 "/dashboard/**",
                                 "/swagger-ui/**",
 //                                "/health/**",
 //                                "/export/**",
                                 "/swagger-ui.html",
                                 "/v3/api-docs/**"
+//                                "/doctors/**",
+//                                "/patients/**",
+//                                "/appointments/**"
                         ).permitAll()
 
                         .requestMatchers("/doctors/**").hasRole("ADMIN")
 
-                        .requestMatchers("/appointments/**").hasAnyRole("ADMIN", "DOCTOR")
+                        .requestMatchers("/appointments/**").hasAnyRole("ADMIN", "DOCTOR","RECEPTIONIST")
 
-                        .requestMatchers("/patients/**").hasAnyRole("ADMIN", "RECEPTIONIST")
+                        .requestMatchers("/patients/**").hasAnyRole("ADMIN", "RECEPTIONIST", "DOCTOR")
 
+                        .requestMatchers("/reports/**").hasAnyRole("ADMIN", "DOCTOR", "RECEPTIONIST")
                         .requestMatchers("/health/**").hasRole("ADMIN")
+                        .requestMatchers("/audit/**").hasRole("ADMIN")
+
+                        .requestMatchers("/ai/**").hasAnyRole("ADMIN", "DOCTOR")
 
                         .requestMatchers("/export/**").hasRole("ADMIN")
 

@@ -23,6 +23,7 @@ public class PatientController {
 
     @PostMapping
     public Patient create(@Valid @RequestBody PatientDTO patientDTO) {
+        System.out.println("DTO Received = " + patientDTO);
         return service.save(patientDTO);
     }
 
@@ -46,5 +47,19 @@ public class PatientController {
     @DeleteMapping("/{id}")
     public void deletePatient(@PathVariable Long id) {
         service.deletePatient(id);
+    }
+
+    @GetMapping("/{id}")
+    public Patient getPatientById(
+            @PathVariable Long id) {
+
+        return service.getById(id);
+    }
+
+    @GetMapping("/search/name")
+    public List<Patient> searchByName(
+            @RequestParam String name) {
+
+        return service.getPatientsByName(name);
     }
 }

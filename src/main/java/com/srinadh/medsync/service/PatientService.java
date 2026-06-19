@@ -69,12 +69,25 @@ public class PatientService {
         patient.setDoctor(doctor);
 
         return repository.save(patient);
+
     }
 
     public void deletePatient(Long id) {
         Patient patient = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Patient not found with id: " + id));
         repository.delete(patient);
+    }
+
+    public Patient getById(Long id) {
+
+        return repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Patient not found"));
+    }
+
+    public List<Patient> getPatientsByName(String name){
+        return repository.findByNameContainingIgnoreCase(name);
     }
 }
 

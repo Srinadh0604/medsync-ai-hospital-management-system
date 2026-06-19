@@ -1,5 +1,6 @@
 package com.srinadh.medsync.dto;
 
+import jakarta.validation.constraints.Future;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,9 @@ public class AppointmentDTO {
 
     private Long patientId;
     private Long doctorId;
+
+    @Future(message = "Appointment must be in the future")
     private LocalDateTime appointmentTime;
-    private String status;
+
+    private AppointmentStatus  status;
 }

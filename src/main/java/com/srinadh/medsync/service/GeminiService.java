@@ -28,7 +28,31 @@ public class GeminiService {
 
 
     public String getHealthSuggestion(String disease) {
-        return generateSummary("Give health suggestions for: " + disease);
+//        return generateSummary("Give health suggestions for: " + disease);
+
+        String prompt = """
+            You are a professional healthcare assistant.
+
+            For the disease below provide:
+
+            Disease Overview
+            Common Symptoms
+            Possible Causes
+            Recommended Precautions
+            Diet and Lifestyle Advice
+            When to Consult a Doctor
+
+            IMPORTANT:
+            Return plain text only.
+            No markdown.
+            No bullet points.
+            No asterisks.
+            Keep under 150 words.
+
+            Disease: %s
+            """.formatted(disease);
+
+        return generateSummary(prompt);
     }
 
     public String generateSummary(String prompt) {
@@ -47,7 +71,7 @@ public class GeminiService {
 //            throw new RuntimeException("Failed to generate AI summary", e);
 
 //            System.out.println("Gemini unavailable: " + e.getMessage());
-
+            e.printStackTrace();
             System.err.println("Gemini API Error: " + e.getMessage());
 
             return """

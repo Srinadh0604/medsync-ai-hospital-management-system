@@ -2,6 +2,7 @@ package com.srinadh.medsync.controller;
 
 import com.srinadh.medsync.entity.Doctor;
 import com.srinadh.medsync.service.DoctorService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class DoctorController {
     }
 
     @PostMapping
-    public Doctor create(@RequestBody Doctor doctor) {
+    public Doctor create(@Valid @RequestBody Doctor doctor) {
         return service.saveDoctor(doctor);
     }
 

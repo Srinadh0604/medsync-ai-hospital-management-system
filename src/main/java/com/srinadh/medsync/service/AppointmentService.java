@@ -8,7 +8,9 @@ import com.srinadh.medsync.exception.ResourceNotFoundException;
 import com.srinadh.medsync.repository.AppointmentRepository;
 import com.srinadh.medsync.repository.DoctorRepository;
 import com.srinadh.medsync.repository.PatientRepository;
+import com.srinadh.medsync.service.EmailService;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
@@ -67,4 +69,16 @@ public class AppointmentService {
     public List<Appointment> getAllAppointments() {
         return appointmentRepository.findAll();
     }
+
+    public void deleteAppointment(Long id) {
+
+        Appointment appointment =
+                appointmentRepository.findById(id)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Appointment not found"));
+
+        appointmentRepository.delete(appointment);
+    }
+
 }

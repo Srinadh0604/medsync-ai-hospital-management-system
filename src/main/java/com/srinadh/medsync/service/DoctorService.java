@@ -1,6 +1,7 @@
 package com.srinadh.medsync.service;
 
 import com.srinadh.medsync.entity.Doctor;
+import com.srinadh.medsync.exception.DuplicateDoctorException;
 import com.srinadh.medsync.repository.DoctorRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,12 @@ public class DoctorService {
     }
 
     public Doctor saveDoctor(Doctor doctor) {
+        if (repository.existsByEmail(
+                doctor.getEmail())) {
+
+            throw new DuplicateDoctorException(
+                    "Doctor email already exists");
+        }
         return repository.save(doctor);
     }
 
@@ -23,3 +30,4 @@ public class DoctorService {
         return repository.findAll();
     }
 }
+

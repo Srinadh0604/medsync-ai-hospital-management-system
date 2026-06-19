@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AI Assistant</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <h2>MedSync</h2>
+
+
+        <a href="dashboard.html">Dashboard</a>
+
+        <a id="doctorMenu" href="doctors.html">
+            Doctors
+        </a>
+
+        <a id="patientMenu" href="patients.html">
+            Patients
+        </a>
+
+        <a href="appointments.html">
+            Appointments
+        </a>
+
+        <a href="reports.html">
+            Reports
+        </a>
+
+        <a id="auditMenu" href="audit.html">
+            Audit Logs
+        </a>
+
+        <a id="aiMenu" href="ai.html">
+            AI Assistant
+        </a>
+
+        <a href="#" onclick="logout()">
+            Logout
+        </a>
+    </div>
+
+    <div class="main-content">
+
+        <div class="form-card">
+
+            <h2>AI Patient Summary</h2>
+
+            <input id="patientId" type="number" placeholder="Patient ID">
+
+            <button onclick="getSummary()">
+                Generate Summary
+            </button>
+
+
+            <input id="disease" placeholder="Enter Disease">
+
+            <button onclick="getSuggestionForPatient()">
+                AI Suggestion
+            </button>
+
+        </div>
+
+        <div class="table-card">
+
+            <h2>AI Output</h2>
+
+            <div id="summaryBox" class="ai-box">
+            </div>
+
+        </div>
+
+    </div>
+    <script src="js/authGuard.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/role.js"></script>
+    <script src="js/ai.js"></script>
+
+
+    <script>
+        applyRolePermissions();
+    </script>
+
+</body>
+
+</html>

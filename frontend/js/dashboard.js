@@ -1,0 +1,76 @@
+
+
+function logout() {
+
+    if (confirm("Are you sure you want to logout?")) {
+
+        localStorage.removeItem("token");
+        window.location.href = "index.html";
+    }
+}
+function renderChart(data) {
+
+    new Chart(
+        document.getElementById("statsChart"),
+        {
+            type: "pie",
+
+            // type:"bar",
+
+            data: {
+                labels: [
+                    "Doctors",
+                    "Patients",
+                    "Users",
+                    "Reports",
+                    "Audit Logs"
+                ],
+
+                datasets: [{
+                    label: "Hospital Statistics",
+
+                    data: [
+                        data.totalDoctors,
+                        data.totalPatients,
+                        data.totalUsers,
+                        data.totalReportsGenerated,
+                        data.totalAuditLogs
+                    ]
+                }]
+            }
+        }
+    );
+}
+
+async function loadDashboard() {
+
+    const response =
+        await fetch(
+        "http://localhost:8080/dashboard/stats",
+        {
+            headers: authHeaders()
+        }
+    );
+
+    const data =
+        await response.json();
+
+    document.getElementById("doctorCount").innerText =
+        data.totalDoctors;
+
+    document.getElementById("patientCount").innerText =
+        data.totalPatients;
+
+    document.getElementById("userCount").innerText =
+        data.totalUsers;
+
+    document.getElementById("reportCount").innerText =
+        data.totalReportsGenerated;
+
+    document.getElementById("auditCount").innerText =
+        data.totalAuditLogs;
+
+    renderChart(data);
+}
+
+loadDashboard();

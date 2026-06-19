@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface PatientRepository extends JpaRepository<Patient, Long> {
     List<Patient> findByDisease(String disease);
+    List<Patient> findByNameContainingIgnoreCase(String name);
 }

@@ -1,5 +1,6 @@
 package com.srinadh.medsync.entity;
 
+import com.srinadh.medsync.dto.AppointmentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,7 +17,9 @@ public class Appointment {
     private Long id;
 
     private LocalDateTime appointmentTime;
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    private AppointmentStatus status;
 
     @ManyToOne
     @JoinColumn(name = "patient_id")

@@ -38,5 +38,37 @@ public class GlobalExceptionHandler {
 
             return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         }
+
+    @ExceptionHandler(
+            EmailAlreadyExistsException.class)
+    public ResponseEntity<String>
+    handleEmailAlreadyExists(
+            EmailAlreadyExistsException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(ex.getMessage());
+    }
+        @ExceptionHandler(IllegalArgumentException.class)
+        public ResponseEntity<String> handleIllegalArgument(
+                IllegalArgumentException ex) {
+
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(ex.getMessage());
+        }
+
+    @ExceptionHandler(DuplicateDoctorException.class)
+    public ResponseEntity<Map<String,String>>
+    handleDuplicateDoctor(DuplicateDoctorException ex){
+
+        Map<String,String> error = new HashMap<>();
+
+        error.put("error", ex.getMessage());
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(error);
+    }
     }
 

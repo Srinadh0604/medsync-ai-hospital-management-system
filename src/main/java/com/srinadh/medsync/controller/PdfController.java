@@ -65,10 +65,31 @@ public class PdfController {
                 .body(generatedPdf.pdfBytes());
     }
 
+//    @GetMapping("/url/{patientId}")
+//    public ResponseEntity<Void> getPdfUrl(
+//            @PathVariable Long patientId) {
+//
+//        String fileName = "patient-" + patientId + ".pdf";
+//
+//        String url = s3Service.generatePresignedUrl(fileName);
+//
+//        return ResponseEntity
+//                .status(302)
+//                .header(HttpHeaders.LOCATION, url)
+//                .build();
+//    }
+
     @GetMapping("/url/{patientId}")
     public String getPdfUrl(@PathVariable Long patientId) {
         String fileName = "patient-" + patientId + ".pdf";
-        return s3Service.generatePresignedUrl(fileName);
+//        return s3Service.generatePresignedUrl(fileName);
+
+        String url = s3Service.generatePresignedUrl(fileName);
+
+        System.out.println("Generated URL = " + url);
+
+        return url;
+
     }
 
     private GeneratedPdf generatePatientPdf(Long patientId) {

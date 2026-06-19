@@ -1,9 +1,11 @@
 package com.srinadh.medsync.service;
 
 import com.srinadh.medsync.dto.LoginRequest;
+import com.srinadh.medsync.dto.LoginResponse;
 import com.srinadh.medsync.dto.RegisterRequest;
 import com.srinadh.medsync.entity.Role;
 import com.srinadh.medsync.entity.User;
+import com.srinadh.medsync.exception.EmailAlreadyExistsException;
 import com.srinadh.medsync.exception.ResourceNotFoundException;
 import com.srinadh.medsync.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,11 +31,41 @@ public class AuthService {
         this.auditService = auditService;
     }
 
+//    public User register(RegisterRequest request) {
+//
+//        User user = new User();
+//
+//        user.setName(request.getName());
+//        user.setEmail(request.getEmail());
+//
+//        user.setPassword(
+//                passwordEncoder.encode(
+//                        request.getPassword()
+//                )
+//        );
+//
+//        Role role = Role.PATIENT;
+//        if (request.getRole() != null && !request.getRole().isBlank()) {
+//            role = Role.valueOf(request.getRole());
+//        }
+//        user.setRole(role);
+//
+//        return userRepository.save(user);
+//    }
+
     public User register(RegisterRequest request) {
+
+        if (userRepository.existsByEmail(
+                request.getEmail())) {
+
+            throw new EmailAlreadyExistsException(
+                    "Email already exists");
+        }
 
         User user = new User();
 
         user.setName(request.getName());
+
         user.setEmail(request.getEmail());
 
         user.setPassword(
@@ -43,15 +75,21 @@ public class AuthService {
         );
 
         Role role = Role.PATIENT;
-        if (request.getRole() != null && !request.getRole().isBlank()) {
-            role = Role.valueOf(request.getRole());
+
+        if (request.getRole() != null &&
+                !request.getRole().isBlank()) {
+
+            role = Role.valueOf(
+                    request.getRole()
+            );
         }
+
         user.setRole(role);
 
         return userRepository.save(user);
     }
 
-    public String login(LoginRequest request) {
+    public LoginResponse login(LoginRequest request) {
 
         User user = userRepository.findByEmail(
                         request.getEmail())
@@ -68,41 +106,16 @@ public class AuthService {
                     "Invalid password");
         }
 
-        auditService.logAction(user.getEmail(), "LOGIN");
+        auditService.logAction(
+                user.getEmail(),
+                "LOGIN");
 
-        return jwtService.generateToken(user);
+        String token =
+                jwtService.generateToken(user);
+
+        return new LoginResponse(
+                token,
+                user.getRole().name()
+        );
     }
 }
-//public class AuthService {
-//
-//    private final UserRepository userRepository;
-//    private final PasswordEncoder passwordEncoder;
-//
-//    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-//        this.userRepository = userRepository;
-//        this.passwordEncoder = passwordEncoder;
-//    }
-//
-//    public User register(RegisterRequest request) {
-//        User user = new User();
-//        user.setName(request.getName());
-//        user.setEmail(request.getEmail());
-//        user.setPassword(passwordEncoder.encode(request.getPassword()));
-//        user.setRole(request.getRole());
-//
-//        return userRepository.save(user);
-//    }
-//
-//    public String login(LoginRequest request) {
-//        User user = userRepository.findByEmail(request.getEmail())
-//                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + request.getEmail()));
-//
-//        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-//            throw new IllegalArgumentException("Invalid password");
-//        }
-//
-//        String token = jwtService.generateToken(user.getEmail());
-//
-//        return token;
-//    }
-//}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <h2>MedSync</h2>
+
+        <a href="dashboard.html">Dashboard</a>
+
+        <a id="doctorMenu" href="doctors.html"> Doctors</a>
+
+        <a id="patientMenu" href="patients.html">
+            Patients
+        </a>
+
+        <a href="appointments.html">
+            Appointments
+        </a>
+
+        <a href="reports.html">
+            Reports
+        </a>
+
+        <a id="auditMenu" href="audit.html">
+            Audit Logs
+        </a>
+
+        <a id="aiMenu" href="ai.html">
+            AI Assistant
+        </a>
+
+        <a href="#" onclick="logout()"> Logout</a>
+
+    </div>
+
+    <div class="main-content">
+
+        <div class="navbar">
+
+            Welcome Srinadh 👋
+
+        </div>
+
+        <div class="dashboard-container">
+
+            <div class="card">
+                <h3>Total Doctors</h3>
+                <p id="doctorCount">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Patients</h3>
+                <p id="patientCount">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Users</h3>
+                <p id="userCount">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Reports</h3>
+                <p id="reportCount">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Audit Logs</h3>
+                <p id="auditCount">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Reports Generated</h3>
+                <p id="reportsGeneratedCount">0</p>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="statsChart"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+
+        © 2026 MedSync | AI-Powered Hospital Management System
+
+    </footer>
+    <script src="js/authGuard.js"></script>
+    <script src="js/api.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/role.js"></script>
+
+    <script>
+        applyRolePermissions();
+    </script>
+
+</body>
+
+</html>
