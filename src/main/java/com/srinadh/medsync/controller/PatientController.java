@@ -3,6 +3,7 @@ package com.srinadh.medsync.controller;
 import com.srinadh.medsync.dto.PatientDTO;
 import com.srinadh.medsync.entity.Patient;
 import com.srinadh.medsync.service.PatientService;
+//import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+//@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/patients")
 public class PatientController {
