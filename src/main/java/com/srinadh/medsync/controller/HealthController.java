@@ -39,6 +39,7 @@ public class HealthController {
     @GetMapping("/health")
     public Map<String, String> health() {
 
+        System.out.println("HEALTH ENDPOINT HIT");
         return Map.of(
                 "status", "UP",
                 "service", "MedSync"
