@@ -47,7 +47,7 @@ public class SecurityConfig {
 //                                "/audit/**",
                                 "/dashboard/**",
                                 "/swagger-ui/**",
-//                                "/health/**",
+                                "/health/**",
 //                                "/export/**",
                                 "/swagger-ui.html",
                                 "/v3/api-docs/**"
@@ -63,7 +63,7 @@ public class SecurityConfig {
                         .requestMatchers("/patients/**").hasAnyRole("ADMIN", "RECEPTIONIST", "DOCTOR")
 
                         .requestMatchers("/reports/**").hasAnyRole("ADMIN", "DOCTOR", "RECEPTIONIST")
-                        .requestMatchers("/health/**").hasRole("ADMIN")
+
                         .requestMatchers("/audit/**").hasRole("ADMIN")
 
                         .requestMatchers("/ai/**").hasAnyRole("ADMIN", "DOCTOR")
