@@ -71,19 +71,29 @@ async function sendReport() {
 
     try {
 
+        console.log(localStorage.getItem("token"));
+        console.log(authHeaders());
         const response =
             await fetch(
                 `${API_URL}/reports/send/${patientId}`,
                 {
                     method: "POST",
-                      headers: authHeaders()
+                    headers: authHeaders()
                 }
             );
 
-        const message =
-            await response.text();
+        console.log("Status:", response.status);
+        const data =
+            await response.json();
 
-        alert(message);
+        alert(data.message);
+
+        console.log(data.s3Url);
+
+        // alert(message);
+        alert(
+            message || "Report sent successfully"
+        );
 
     } catch (error) {
 

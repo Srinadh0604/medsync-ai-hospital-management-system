@@ -76,8 +76,14 @@ async function getSuggestion() {
     try {
 
         const response =
+            // await fetch(
+            //     `${API_URL}/ai/suggestion?disease=${encodeURIComponent(disease)}`
+            // );
             await fetch(
-                `${API_URL}/ai/suggestion?disease=${encodeURIComponent(disease)}`
+                `${API_URL}/ai/suggestion?disease=${encodeURIComponent(disease)}`,
+                {
+                    headers: authHeaders()
+                }
             );
 
         if (!response.ok) {
@@ -106,9 +112,16 @@ async function getSuggestionForPatient() {
 
     // Get patient details
     const patientResponse =
-        await fetch(
-            `${API_URL}/patients/${patientId}`
-        );
+        // await fetch(
+        //     `${API_URL}/patients/${patientId}`
+        // );
+          await fetch(
+        `${API_URL}/patients/${patientId}`,
+        {
+            headers: authHeaders()
+        }
+    );
+    console.log(patientResponse.status);
 
     const patient =
         await patientResponse.json();

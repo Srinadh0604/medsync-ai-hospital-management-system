@@ -43,7 +43,7 @@ public class SecurityConfig {
                                 "/auth/**",
                                 "/pdf/**",
 //                                "/ai/**",
-//                                "/reports/**",
+                                "/reports/**",
 //                                "/audit/**",
                                 "/dashboard/**",
                                 "/swagger-ui/**",
@@ -62,7 +62,7 @@ public class SecurityConfig {
 
                         .requestMatchers("/patients/**").hasAnyRole("ADMIN", "RECEPTIONIST", "DOCTOR")
 
-                        .requestMatchers("/reports/**").hasAnyRole("ADMIN", "DOCTOR", "RECEPTIONIST")
+//                        .requestMatchers("/reports/**").hasAnyRole("ADMIN", "DOCTOR", "RECEPTIONIST")
 
                         .requestMatchers("/audit/**").hasRole("ADMIN")
 

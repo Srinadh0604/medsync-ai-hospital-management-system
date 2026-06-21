@@ -67,28 +67,44 @@ async function addDoctor() {
             "specialization"
         ).value;
 
+    const email =
+        document.getElementById("email").value;
+
     const response =
         await fetch(
             `${API_URL}/doctors`,
             {
                 method: "POST",
-
-                // headers: {
-                //     "Content-Type":
-                //         "application/json"
-                // },
-                 headers: {
-            ...authHeaders()
-        },
-
+                headers: authHeaders(),
                 body: JSON.stringify({
-
                     name,
-                    specialization
-
+                    specialization,
+                    email
                 })
             }
         );
+    // await fetch(
+    //     `${API_URL}/doctors`,
+    //     {
+    //         method: "POST",
+
+    //         // headers: {
+    //         //     "Content-Type":
+    //         //         "application/json"
+    //         // },
+    //         //  headers: authHeaders()
+    //          headers: {
+    //     ...authHeaders()
+    // },
+
+    //         body: JSON.stringify({
+
+    //             name,
+    //             specialization
+
+    //         })
+    //     }
+    // );
 
     if (response.ok) {
 

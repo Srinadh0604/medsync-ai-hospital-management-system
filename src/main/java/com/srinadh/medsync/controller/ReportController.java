@@ -22,6 +22,7 @@ public class ReportController {
 
     @PostMapping("/send/{patientId}")
     public ResponseEntity<Map<String, String>> sendReport(@PathVariable Long patientId) {
+        System.out.println("REPORT ENDPOINT HIT");
         String s3Url = reportService.generateAndSendReport(patientId);
 
         Map<String, String> response = new HashMap<>();
