@@ -1,6 +1,6 @@
 // const API_URL =  "http://localhost:8080";
 
-const API_URL = "https://medsync-ai-hospital-management-system.onrender.com";
+// const API_URL = "https://medsync-ai-hospital-management-system.onrender.com";
 
 // import { API_URL } from "./config/api";
 Authorization:

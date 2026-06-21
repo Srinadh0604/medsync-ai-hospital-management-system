@@ -1,5 +1,5 @@
-const API_URL = 
-"https://medsync-ai-hospital-management-system.onrender.com";
+// const API_URL = 
+// "https://medsync-ai-hospital-management-system.onrender.com";
 
 async function loadPatientsDropdown() {
 

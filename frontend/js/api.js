@@ -1,4 +1,4 @@
- const BASE_URL = "https://medsync-ai-hospital-management-system.onrender.com";
+//  const BASE_URL = "https://medsync-ai-hospital-management-system.onrender.com";
 // "http://localhost:8080";
 
 
