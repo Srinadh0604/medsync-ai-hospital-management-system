@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:8080";
+const API_URL = 
+"https://medsync-ai-hospital-management-system.onrender.com";
 
 async function loadPatientsDropdown() {
 
@@ -21,7 +22,7 @@ async function loadPatientsDropdown() {
         }
 
         const data = await response.json();
-        window.open(data.url, "_blank");
+        // window.open(data.url, "_blank");
 
         const dropdown =
             document.getElementById("patientId");
@@ -74,7 +75,8 @@ async function sendReport() {
             await fetch(
                 `${API_URL}/reports/send/${patientId}`,
                 {
-                    method: "POST"
+                    method: "POST",
+                      headers: authHeaders()
                 }
             );
 

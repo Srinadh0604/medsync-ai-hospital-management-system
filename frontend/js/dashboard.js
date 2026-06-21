@@ -46,7 +46,7 @@ async function loadDashboard() {
 
     const response =
         await fetch(
-        "http://localhost:8080/dashboard/stats",
+        `${API_URL}/dashboard/stats`,
         {
             headers: authHeaders()
         }

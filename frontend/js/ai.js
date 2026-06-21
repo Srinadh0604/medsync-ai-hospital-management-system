@@ -1,15 +1,19 @@
-const API_URL =
-    "http://localhost:8080";
+// const API_URL =  "http://localhost:8080";
 
+const API_URL = "https://medsync-ai-hospital-management-system.onrender.com";
+
+// import { API_URL } from "./config/api";
+Authorization:
+`Bearer ${localStorage.getItem("token")}`
 const userRole =
     localStorage.getItem("role");
 
-if(
+if (
     userRole !== "ADMIN" &&
     userRole !== "DOCTOR"
-){
+) {
     window.location.href =
-    "dashboard.html";
+        "dashboard.html";
 }
 
 async function getSummary() {
@@ -20,15 +24,23 @@ async function getSummary() {
     try {
 
         const response =
+            //         await fetch(
+            //               `http://localhost:8080/ai/patient-summary/${patientId}`,
+            //     {
+            //         headers: {
+            //             Authorization:
+            //                 `Bearer ${token}`
+            //         }
+            //     }
+            // );
             await fetch(
-        `http://localhost:8080/ai/patient-summary/${patientId}`,
-        {
-            headers: {
-                Authorization:
-                    `Bearer ${token}`
-            }
-        }
-    );
+                `${API_URL}/ai/patient-summary/${patientId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
 
         if (!response.ok) {
             throw new Error(
@@ -109,12 +121,18 @@ async function getSuggestionForPatient() {
         // await fetch(
         //     `${API_URL}/ai/suggestion?disease=${encodeURIComponent(disease)}`
         // );
-      await  fetch(
-            `http://localhost:8080/ai/suggestion?disease=${disease}`,
+        //   await  fetch(
+        //         `http://localhost:8080/ai/suggestion?disease=${disease}`,
+        //         {
+        //             headers: authHeaders()
+        //         }
+        //     )
+        await fetch(
+            `${API_URL}/ai/suggestion?disease=${encodeURIComponent(disease)}`,
             {
                 headers: authHeaders()
             }
-        )
+        );
 
     const suggestion =
         await aiResponse.text();
@@ -123,24 +141,24 @@ async function getSuggestionForPatient() {
         .innerHTML = suggestion;
 }
 async function loadPatientsDropdown() {
-    
+
     const response = await fetch(
-    `${API_URL}/patients?page=0&size=100`,
-    {
-        headers: {
-            Authorization:
-                `Bearer ${localStorage.getItem("token")}`
+        `${API_URL}/patients?page=0&size=100`,
+        {
+            headers: {
+                Authorization:
+                    `Bearer ${localStorage.getItem("token")}`
+            }
         }
-    }
-);
-
-if (!response.ok) {
-    throw new Error(
-        `HTTP Error ${response.status}`
     );
-}
 
-const data = await response.json();
+    if (!response.ok) {
+        throw new Error(
+            `HTTP Error ${response.status}`
+        );
+    }
+
+    const data = await response.json();
 
     const dropdown =
         document.getElementById("patientId");

@@ -16,7 +16,7 @@ async function loadDoctors() {
         // );
 
         await fetch(
-            "http://localhost:8080/doctors",
+            `${API_URL}/doctors`,
             {
                 headers: authHeaders()
             }
@@ -69,14 +69,17 @@ async function addDoctor() {
 
     const response =
         await fetch(
-            "http://localhost:8080/doctors",
+            `${API_URL}/doctors`,
             {
                 method: "POST",
 
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
+                // headers: {
+                //     "Content-Type":
+                //         "application/json"
+                // },
+                 headers: {
+            ...authHeaders()
+        },
 
                 body: JSON.stringify({
 

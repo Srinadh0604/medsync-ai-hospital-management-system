@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:8080";
+const API_URL = "https://medsync-ai-hospital-management-system.onrender.com";
+// "http://localhost:8080";
 
 async function loadAppointments() {
 
@@ -92,16 +93,25 @@ async function addAppointment() {
             `${API_URL}/appointments`,
             {
                 method: "POST",
-
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
-
-                body:
-                    JSON.stringify(appointment)
+                headers: authHeaders(),
+                body: JSON.stringify(appointment)
             }
         );
+
+        // await fetch(
+        //     `${API_URL}/appointments`,
+        //     {
+        //         method: "POST",
+
+        //         headers: {
+        //             "Content-Type":
+        //                 "application/json"
+        //         },
+
+        //         body:
+        //             JSON.stringify(appointment)
+        //     }
+        // );
 
         document.getElementById(
             "patientId"
@@ -143,7 +153,8 @@ async function deleteAppointment(id) {
         await fetch(
             `${API_URL}/appointments/${id}`,
             {
-                method: "DELETE"
+                method: "DELETE",
+                 headers: authHeaders()
             }
         );
 

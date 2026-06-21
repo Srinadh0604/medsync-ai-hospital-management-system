@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:8080";
+const API_URL = "https://medsync-ai-hospital-management-system.onrender.com";
+//  "http://localhost:8080";
 
 const userRole =
     localStorage.getItem("role");
@@ -17,7 +18,7 @@ async function loadAuditLogs() {
         const response =
             // await fetch(`${API_URL}/audit/logs`);
           await   fetch(
-                "http://localhost:8080/audit/logs",
+                `${API_URL}/audit/logs`,
                 {
                     headers: authHeaders()
                 }
