@@ -64,11 +64,23 @@ public class ReportService {
                 + "Regards,\n"
                 + "MedSync Healthcare";
 
-        emailService.sendEmail(
-                patient.getEmail(),
-                "Your MedSync Discharge Report",
-                emailBody
-        );
+//        emailService.sendEmail(
+//                patient.getEmail(),
+//                "Your MedSync Discharge Report",
+//                emailBody
+//        );
+        try {
+
+            emailService.sendEmail(
+                    patient.getEmail(),
+                    "Your MedSync Discharge Report",
+                    emailBody
+            );
+
+        } catch (Exception e) {
+
+            log.error("Email sending failed", e);
+        }
 
         log.info("Report generated and emailed for patientId={}, url={}", patientId, s3Url);
         auditService.logAction(patient.getEmail(), "GENERATE_REPORT");

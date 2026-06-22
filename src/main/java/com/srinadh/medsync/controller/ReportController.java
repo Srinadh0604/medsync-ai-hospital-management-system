@@ -20,15 +20,43 @@ public class ReportController {
         this.reportService = reportService;
     }
 
+//    @PostMapping("/send/{patientId}")
+//    public ResponseEntity<Map<String, String>> sendReport(@PathVariable Long patientId) {
+//        System.out.println("REPORT ENDPOINT HIT");
+//        String s3Url = reportService.generateAndSendReport(patientId);
+//
+//        Map<String, String> response = new HashMap<>();
+//        response.put("message", "Report generated and sent successfully");
+//        response.put("s3Url", s3Url);
+//
+//        return ResponseEntity.ok(response);
+//    }
+
     @PostMapping("/send/{patientId}")
-    public ResponseEntity<Map<String, String>> sendReport(@PathVariable Long patientId) {
-        System.out.println("REPORT ENDPOINT HIT");
-        String s3Url = reportService.generateAndSendReport(patientId);
+    public ResponseEntity<?> sendReport(@PathVariable Long patientId) {
 
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Report generated and sent successfully");
-        response.put("s3Url", s3Url);
+        try {
+            String s3Url = reportService.generateAndSendReport(patientId);
 
-        return ResponseEntity.ok(response);
+            return ResponseEntity.ok(
+                    Map.of(
+                            "message",
+                            "Report generated successfully",
+
+                            "s3Url",
+                            s3Url
+                    )
+            );
+
+        } catch (Exception e) {
+
+            return ResponseEntity.internalServerError()
+                    .body(
+                            Map.of(
+                                    "error",
+                                    e.getMessage()
+                            )
+                    );
+        }
     }
 }
