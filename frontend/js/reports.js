@@ -90,10 +90,14 @@ async function sendReport() {
 
         console.log(data.s3Url);
 
+        alert(data.message);
+
+          window.open( data.s3Url,"_blank");
+
         // alert(message);
-        alert(
-            message || "Report sent successfully"
-        );
+        // alert(
+        //     message || "Report sent successfully"
+        // );
 
     } catch (error) {
 
