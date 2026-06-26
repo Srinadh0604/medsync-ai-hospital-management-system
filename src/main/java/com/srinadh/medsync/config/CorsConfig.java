@@ -34,33 +34,55 @@ public class CorsConfig {
 //        return source;
 //    }
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
+//    @Bean
+//    public CorsConfigurationSource corsConfigurationSource() {
+//
+//        CorsConfiguration config = new CorsConfiguration();
+//
+//        config.setAllowedOrigins(List.of(
+//                "http://127.0.0.1:5500",
+//                "https://6a3964b775f4259daf12d15e--snazzy-genie-7b38de.netlify.app"
+//        ));
+//
+//        config.setAllowedMethods(List.of(
+//                "GET",
+//                "POST",
+//                "PUT",
+//                "DELETE",
+//                "OPTIONS"
+//        ));
+//
+//        config.setAllowedHeaders(List.of("*"));
+//
+//        config.setAllowCredentials(true);
+//
+//        UrlBasedCorsConfigurationSource source =
+//                new UrlBasedCorsConfigurationSource();
+//
+//        source.registerCorsConfiguration("/**", config);
+//
+//        return source;
+//    }
 
-        CorsConfiguration config = new CorsConfiguration();
+        @Bean
+        public CorsConfigurationSource corsConfigurationSource() {
 
-        config.setAllowedOrigins(List.of(
-                "http://127.0.0.1:5500",
-                "https://6a3964b775f4259daf12d15e--snazzy-genie-7b38de.netlify.app"
-        ));
+            CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedMethods(List.of(
-                "GET",
-                "POST",
-                "PUT",
-                "DELETE",
-                "OPTIONS"
-        ));
+            config.setAllowedOriginPatterns(List.of(
+                    "http://127.0.0.1:5500",
+                    "https://*.netlify.app"
+            ));
 
-        config.setAllowedHeaders(List.of("*"));
+            config.setAllowedMethods(List.of("*"));
+            config.setAllowedHeaders(List.of("*"));
+            config.setAllowCredentials(true);
 
-        config.setAllowCredentials(true);
+            UrlBasedCorsConfigurationSource source =
+                    new UrlBasedCorsConfigurationSource();
 
-        UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
+            source.registerCorsConfiguration("/**", config);
 
-        source.registerCorsConfiguration("/**", config);
-
-        return source;
+            return source;
+        }
     }
-}
