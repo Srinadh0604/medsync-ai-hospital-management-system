@@ -10,7 +10,8 @@ import com.srinadh.medsync.repository.DoctorRepository;
 import com.srinadh.medsync.repository.PatientRepository;
 import com.srinadh.medsync.service.EmailService;
 import org.springframework.stereotype.Service;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -21,6 +22,8 @@ public class AppointmentService {
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
     private final EmailService emailService;
+    private static final Logger log =
+            LoggerFactory.getLogger(AppointmentService.class);
 
     public AppointmentService(AppointmentRepository appointmentRepository,
                               PatientRepository patientRepository,
@@ -48,20 +51,44 @@ public class AppointmentService {
         Appointment savedAppointment =
                 appointmentRepository.save(appointment);
 
-        emailService.sendEmail(
+//        emailService.sendEmail(
+//
+//                patient.getEmail(),
+//
+//                "Appointment Confirmed",
+//
+//                "Hello "
+//                        + patient.getName()
+//                        + ", your appointment with  "
+//                        + doctor.getName()
+//                        + " is confirmed for "
+//                        + dto.getAppointmentTime()
+//
+//        );
+        try {
 
-                patient.getEmail(),
+            emailService.sendEmail(
 
-                "Appointment Confirmed",
+                    patient.getEmail(),
 
-                "Hello "
-                        + patient.getName()
-                        + ", your appointment with  "
-                        + doctor.getName()
-                        + " is confirmed for "
-                        + dto.getAppointmentTime()
+                    "Appointment Confirmed",
 
-        );
+                    "Hello "
+                            + patient.getName()
+                            + ", your appointment with "
+                            + doctor.getName()
+                            + " is confirmed for "
+                            + dto.getAppointmentTime()
+            );
+
+        } catch (Exception e) {
+
+            log.error(
+                    "Failed to send appointment confirmation email to {}",
+                    patient.getEmail(),
+                    e
+            );
+        }
 
         return savedAppointment;
     }
