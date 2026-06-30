@@ -30,12 +30,20 @@ public class AuthService {
         this.jwtService = jwtService;
         this.auditService = auditService;
     }
-
+  // Main code
 //    public User register(RegisterRequest request) {
+//
+//        if (userRepository.existsByEmail(
+//                request.getEmail())) {
+//
+//            throw new EmailAlreadyExistsException(
+//                    "Email already exists");
+//        }
 //
 //        User user = new User();
 //
 //        user.setName(request.getName());
+//
 //        user.setEmail(request.getEmail());
 //
 //        user.setPassword(
@@ -45,21 +53,25 @@ public class AuthService {
 //        );
 //
 //        Role role = Role.PATIENT;
-//        if (request.getRole() != null && !request.getRole().isBlank()) {
-//            role = Role.valueOf(request.getRole());
+//
+//        if (request.getRole() != null &&
+//                !request.getRole().isBlank()) {
+//
+//            role = Role.valueOf(
+//                    request.getRole()
+//            );
 //        }
+//
 //        user.setRole(role);
 //
 //        return userRepository.save(user);
 //    }
 
+
     public User register(RegisterRequest request) {
 
-        if (userRepository.existsByEmail(
-                request.getEmail())) {
-
-            throw new EmailAlreadyExistsException(
-                    "Email already exists");
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new EmailAlreadyExistsException("Email already exists");
         }
 
         User user = new User();
@@ -69,24 +81,20 @@ public class AuthService {
         user.setEmail(request.getEmail());
 
         user.setPassword(
-                passwordEncoder.encode(
-                        request.getPassword()
-                )
+                passwordEncoder.encode(request.getPassword())
         );
 
-        Role role = Role.PATIENT;
+        // Always assign a safe default role
+        user.setRole(Role.PATIENT);
 
-        if (request.getRole() != null &&
-                !request.getRole().isBlank()) {
+        User savedUser = userRepository.save(user);
 
-            role = Role.valueOf(
-                    request.getRole()
-            );
-        }
+        auditService.logAction(
+                savedUser.getEmail(),
+                "REGISTER"
+        );
 
-        user.setRole(role);
-
-        return userRepository.save(user);
+        return savedUser;
     }
 
     public LoginResponse login(LoginRequest request) {
@@ -115,7 +123,10 @@ public class AuthService {
 
         return new LoginResponse(
                 token,
-                user.getRole().name()
+                user.getRole().name(),
+                user.getName()
         );
     }
+
+
 }

@@ -1,43 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedSync Login</title>
-
-    <link rel="stylesheet"
-          href="css/style.css">
-
+    <link rel="stylesheet" href="css/style.css">
 </head>
+<body class="auth-page">
+    <div class="auth-background" aria-hidden="true">
+        <div class="orb orb-one"></div>
+        <div class="orb orb-two"></div>
+    </div>
 
-<body>
+    <div class="auth-shell">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="brand-mark">✚</div>
+                <div>
+                    <h1>MedSync</h1>
+                    <p>Hospital Management System</p>
+                </div>
+                <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
 
-<div class="login-container">
+            <form id="loginForm" novalidate>
+                <div class="field-group">
+                    <label for="email">Email address</label>
+                    <input type="email" id="email" name="email" placeholder="name@hospital.com" required>
+                    <span class="field-error" id="emailError"></span>
+                </div>
 
-    <h1>MedSync</h1>
+                <div class="field-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <span class="field-error" id="passwordError"></span>
+                </div>
 
-    <p>Hospital Management System</p>
+                <div class="helper-row">
+                    <label class="checkbox-row" for="rememberMe">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="mailto:support@medsync.com?subject=Password%20Reset" class="text-link">Forgot password?</a>
+                </div>
 
-    <input
-            type="email"
-            id="email"
-            placeholder="Enter Email">
+                <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
 
-    <input
-            type="password"
-            id="password"
-            placeholder="Enter Password">
+                <button type="submit" id="loginButton" class="primary-btn">
+                    <span class="btn-label">Sign In</span>
+                    <span class="btn-spinner" aria-hidden="true"></span>
+                </button>
 
-    <button onclick="login()">
-        Login
-    </button>
+                <p class="footer-text">
+                    <a href="register.html" class="text-link">Create an Account</a>
+                </p>
+            </form>
+        </div>
+    </div>
 
-</div>
-
-<script src="js/api.js"></script>
-<script src="js/common.js"></script>
-<script src="js/auth.js"></script>
-
+    <script src="js/api.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/auth.js"></script>
 </body>
 </html>

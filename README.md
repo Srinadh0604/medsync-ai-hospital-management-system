@@ -8,6 +8,19 @@ The system enables hospitals to efficiently manage doctors, patients, appointmen
 
 ---
 
+🚀 Live Demo
+Frontend (Netlify)
+
+https://snazzy-genie-7b38de.netlify.app/
+
+Backend API (Render)
+
+https://medsync-ai-hospital-management-system.onrender.com
+
+Swagger API Documentation
+
+https://medsync-ai-hospital-management-system.onrender.com/swagger-ui/index.html
+
 ## Features
 
 ### Authentication & Security
@@ -135,7 +148,7 @@ The system enables hospitals to efficiently manage doctors, patients, appointmen
 
 ### Login Page
 
-![Login Page](screenshots/login.jpeg)
+![Login Page](screenshots/LoginPage.jpeg)
 
 ### Dashboard Analytics
 
@@ -236,14 +249,11 @@ cd medsync
 docker compose up --build
 ```
 
-Application:
-
-```text
-Backend: http://localhost:8080
-Swagger: http://localhost:8080/swagger-ui/index.html
-```
-
 
 ## Author
 
 Srinadh Bandari
+
+## License
+
+This project is licensed under the MIT License.

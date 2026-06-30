@@ -1,13 +1,27 @@
 
 
+// function logout() {
+
+//     if (confirm("Are you sure you want to logout?")) {
+
+//         localStorage.removeItem("token");
+//         window.location.href = "index.html";
+//     }
+// }
+
 function logout() {
 
     if (confirm("Are you sure you want to logout?")) {
 
         localStorage.removeItem("token");
+        localStorage.removeItem("role");
+        localStorage.removeItem("name");
+        localStorage.removeItem("rememberedEmail"); // Optional
+
         window.location.href = "index.html";
     }
 }
+
 function renderChart(data) {
 
     new Chart(
@@ -42,6 +56,11 @@ function renderChart(data) {
     );
 }
 
+const name = localStorage.getItem("name");
+
+document.getElementById("welcomeText").innerHTML =
+    `Welcome ${name} 👋`;
+
 async function loadDashboard() {
 
     const response =
@@ -72,5 +91,6 @@ async function loadDashboard() {
 
     renderChart(data);
 }
+
 
 loadDashboard();
